@@ -27,4 +27,24 @@ class FB {
             console.log(snapshot.val())
         })
     }
+
+    grabTopArtist(username) {
+        const playlists = this.db.ref(`/user/${username}/playlists/`);
+
+        let artistsSample = {};
+
+        playlists.once('value', snapshot => {
+            for (let playlist in snapshot.val()) {
+                for (let song in playlist){
+                    if (artistsSample[song.artist] === undefined){
+                        artistsSample[song.artist] = 1;
+                    } else {
+                        artistsSample[song.artist]++;
+                    }
+                }
+            }
+        });
+
+        console.log(artistsSample);
+    }
 }
