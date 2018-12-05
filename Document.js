@@ -3,10 +3,10 @@ class Document {
         console.log('document created');
         this.attachClickHandlers();
 
-        this.spotifyInstance = new Spotify();
+        // this.spotifyInstance = new Spotify();
         this.firebaseInstance = new FB();
-        this.mapsInstance = new Maps();
-        this.ticketsInstance = new Tickets();
+        // this.mapsInstance = new Maps();
+        // this.ticketsInstance = new Tickets();
     }
 
     attachClickHandlers() {
