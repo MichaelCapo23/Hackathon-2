@@ -5,11 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Hackathon 2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="FB.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="Maps.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDnACGfvcJvr6XTbNAPz8U_iXlJ2ekgqE&libraries=places&callback=initMap" async defer></script>
+    <script src="FB.js"></script>
     <script src="./Spotify/Spotify.js"></script>
     <script src="Tickets.js"></script>
     <script src="Document.js"></script>
@@ -44,9 +45,7 @@
             </div>
         </div>
         <div class="mapContainer">
-            <div class="map">
-                MAP HERE
-            </div>
+            <div id="map"></div>
         </div>
     </div>
 </body>
