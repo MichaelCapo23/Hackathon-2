@@ -5,7 +5,7 @@ let request = require("request");
 let requestpromise = require("request-promise");
 let querystring = require("querystring");
 let bluebird = require("bluebird");
-
+let FBclient = new FB();
 let app = express();
 
 var access_token;
@@ -100,7 +100,7 @@ app.get("/search", function(req, res) {
 
       }
 
-      let FBclient = new FB();
+      // let FBclient = new FB();
       FBclient.addSpotifyArtistsToFB(username, tracks);
 
       console.log(tracks);
