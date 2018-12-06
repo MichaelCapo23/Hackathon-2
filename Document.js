@@ -2,7 +2,6 @@ class Document {
     constructor () {
         console.log('document created');
         this.attachClickHandlers();
-
         // this.attachClickHandlers = this.attachClickHandlers.bind(this);
         // this.grabUsername = this.grabUsername.bind(this);
         // this.clearInputField = this.clearInputField.bind(this);
