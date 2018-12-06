@@ -1,0 +1,19 @@
+.header {
+    background-color: grey;
+}
+
+.title {
+    background-color: lightblue;
+}
+
+.instructions {
+    background-color: lightcoral
+}
+
+.concertsContainer {
+    background-color: aqua;
+}
+
+.mapContainer {
+    background-color: blueviolet;
+}
