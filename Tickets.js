@@ -9,7 +9,7 @@ class Tickets {
     }
 
     getGeoHash() {
-        var hash = Geohash.encode(39.969938,-75.160278 , [5]);
+        var hash = Geohash.encode(this.location.longitude,this.location.latitude , [5]);
         return hash;
     }
 
