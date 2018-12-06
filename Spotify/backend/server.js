@@ -2,7 +2,6 @@ let express = require("express");
 let request = require("request");
 let requestpromise = require("request-promise");
 let querystring = require("querystring");
-let q = require("q");
 let bluebird = require("bluebird");
 
 let app = express();
