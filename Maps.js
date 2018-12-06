@@ -1,21 +1,25 @@
 class Map {
   constructor() {
     this.mapElement = '#map';
-    this.options = {
-      center: { lat: 33.7222, lng: -116.3745 },
-      zoom: 7,
-    }
     this.origin = null;
     this.locations = [];
-    
-  }
-
-  setOrigin({ lat, lng }) {
-    this.options.center = { lat, lng };
   }
 
   setLocations(locations) {
     this.locations = locations;
+  }
+
+  setOrigin(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
+        callback();
+      });
+    }
+  }
+
+  getOrigin() {
+    return this.origin;
   }
 
   initMap() {
@@ -23,12 +27,14 @@ class Map {
   }
 
   drawMap() {
-    const display = new google.maps.Map(document.getElementById('map'), this.options);
+    const display = new google.maps.Map(document.getElementById('map'));
     const bounds = new google.maps.LatLngBounds();
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const { latitude: lat, longitude: lng } = position.coords;
+
+        bounds.extend(new google.maps.LatLng(lat, lng));
 
         const marker = new google.maps.Marker({
           position: { lat, lng },
@@ -43,6 +49,8 @@ class Map {
         const infoWindow = new google.maps.InfoWindow({ content: 'You' });
 
         marker.addListener('click', () => infoWindow.open(display, marker));
+
+        display.fitBounds(bounds);
       });
     }
 
