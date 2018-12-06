@@ -24,7 +24,11 @@ class FB {
         console.log('testing connection...');
 
         test.once('value', snapshot => {
-            console.log(snapshot.val())
+            console.log(snapshot.val());
         })
+    }
+
+    addSpotifyArtistsToFB(username, feed) {
+        console.log(feed);
     }
 }
