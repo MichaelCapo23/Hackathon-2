@@ -1,6 +1,5 @@
 class Document {
     constructor () {
-        console.log('document created');
         this.attachClickHandlers();
         // this.attachClickHandlers = this.attachClickHandlers.bind(this);
         // this.grabUsername = this.grabUsername.bind(this);
@@ -54,7 +53,11 @@ class Document {
         },
       ];
 
-      this.map.setLocations(concerts);
-      this.map.initMap();
+      this.map.setOrigin(() => {
+        const origin = this.map.getOrigin();
+        console.log(origin);
+        this.map.setLocations(concerts);
+        this.map.initMap();
+      });
     }
 }
