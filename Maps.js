@@ -1,93 +1,86 @@
-[ { added_at: '2018-12-04T17:47:29Z',
-added_by:
- { external_urls: [Object],
-   href: 'https://api.spotify.com/v1/users/jpark121989',
-   id: 'jpark121989',
-   type: 'user',
-   uri: 'spotify:user:jpark121989' },
-is_local: false,
-primary_color: null,
-track:
- { album: [Object],
-   artists: [Array],
-   available_markets: [Array],
-   disc_number: 1,
-   duration_ms: 227040,
-   episode: false,
-   explicit: false,
-   external_ids: [Object],
-   external_urls: [Object],
-   href: 'https://api.spotify.com/v1/tracks/68vMDFui7uTbw9OQcyB0gD',
-   id: '68vMDFui7uTbw9OQcyB0gD',
-   is_local: false,
-   name: 'V',
-   popularity: 62,
-   preview_url:
-    'https://p.scdn.co/mp3-preview/beb4943930d13e4c384119025caea4e9af4369e1?cid=c01e41d46ff44ba2b73f4b8a28fa9499',
-   track: true,
-   track_number: 2,
-   type: 'track',
-   uri: 'spotify:track:68vMDFui7uTbw9OQcyB0gD' },
-video_thumbnail: { url: null } },
-{ added_at: '2018-12-04T17:47:46Z',
-added_by:
- { external_urls: [Object],
-   href: 'https://api.spotify.com/v1/users/jpark121989',
-   id: 'jpark121989',
-   type: 'user',
-   uri: 'spotify:user:jpark121989' },
-is_local: false,
-primary_color: null,
-track:
- { album: [Object],
-   artists: [Array],
-   available_markets: [Array],
-   disc_number: 1,
-   duration_ms: 246284,
-   episode: false,
-   explicit: false,
-   external_ids: [Object],
-   external_urls: [Object],
-   href: 'https://api.spotify.com/v1/tracks/7y9Xospz6eMMJBtqELet7d',
-   id: '7y9Xospz6eMMJBtqELet7d',
-   is_local: false,
-   name: 'Yacht (K) [feat. Sik-K]',
-   popularity: 56,
-   preview_url:
-    'https://p.scdn.co/mp3-preview/1cadba6bc9993bdd4d6e3d2a57cdcd35d43ba470?cid=c01e41d46ff44ba2b73f4b8a28fa9499',
-   track: true,
-   track_number: 1,
-   type: 'track',
-   uri: 'spotify:track:7y9Xospz6eMMJBtqELet7d' },
-video_thumbnail: { url: null } },
-{ added_at: '2018-12-04T17:48:41Z',
-added_by:
- { external_urls: [Object],
-   href: 'https://api.spotify.com/v1/users/jpark121989',
-   id: 'jpark121989',
-   type: 'user',
-   uri: 'spotify:user:jpark121989' },
-is_local: false,
-primary_color: null,
-track:
- { album: [Object],
-   artists: [Array],
-   available_markets: [Array],
-   disc_number: 1,
-   duration_ms: 230085,
-   episode: false,
-   explicit: false,
-   external_ids: [Object],
-   external_urls: [Object],
-   href: 'https://api.spotify.com/v1/tracks/212belGQthhU26pCOF3EhQ',
-   id: '212belGQthhU26pCOF3EhQ',
-   is_local: false,
-   name: '좋아 Joah (Remastered)',
-   popularity: 44,
-   preview_url:
-    'https://p.scdn.co/mp3-preview/365f6c7da4b99e8e312c956c30f51bbb416f5595?cid=c01e41d46ff44ba2b73f4b8a28fa9499',
-   track: true,
-   track_number: 2,
-   type: 'track',
-   uri: 'spotify:track:212belGQthhU26pCOF3EhQ' },
-video_thumbnail: { url: null } } ]
+class Map {
+  constructor() {
+    this.mapElement = '#map';
+    this.origin = null;
+    this.locations = [];
+  }
+
+  setLocations(locations) {
+    this.locations = locations;
+  }
+
+  setOrigin(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
+        callback();
+      });
+    }
+  }
+
+  getOrigin() {
+    return this.origin;
+  }
+
+  initMap() {
+    $.getScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyCDnACGfvcJvr6XTbNAPz8U_iXlJ2ekgqE', () => this.drawMap());
+  }
+
+  drawMap() {
+    const display = new google.maps.Map(document.getElementById('map'));
+    const bounds = new google.maps.LatLngBounds();
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude: lat, longitude: lng } = position.coords;
+
+        bounds.extend(new google.maps.LatLng(lat, lng));
+
+        const marker = new google.maps.Marker({
+          position: { lat, lng },
+          map: display,
+          title: 'Your location',
+          icon: {
+            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+            scaledSize: new google.maps.Size(40, 40),
+          }
+        });
+
+        const infoWindow = new google.maps.InfoWindow({ content: 'You' });
+
+        marker.addListener('click', () => infoWindow.open(display, marker));
+
+        display.fitBounds(bounds);
+      });
+    }
+
+    this.locations.forEach(location => {
+      const marker = new google.maps.Marker({
+        position: { lat: location.lat, lng: location.lng },
+        map: display,
+        title: location.venue,
+      });
+
+      bounds.extend(new google.maps.LatLng(location.lat, location.lng));
+
+      const price = location.price ? `<p>${location.price}</p>` : '';
+      
+      const contentString =
+        `<div id="infoContent">
+          <h1 class="infoHeading">${location.venue}</h1>
+          <div id="infoBody">
+            <p>${location.website}</p>
+            <p>${location.date}</p>
+            <p>${location.address}</p>
+            ${price}
+          </div>
+        </div>`;
+
+      const infoWindow = new google.maps.InfoWindow({ content: contentString });
+
+      marker.addListener('click', () => infoWindow.open(display, marker));
+
+      display.fitBounds(bounds);
+    });
+  }
+}
