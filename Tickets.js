@@ -1,13 +1,12 @@
 class Tickets {
-    constructor(artistArr, location) {
+    constructor(artistArr, map) {
         this.concertInfo = {};
         this.artistArr = artistArr;
-        this.location = location;
-        // var hash = this.getGeoHash(this.location);
+        var hash = this.getGeoHash(this.location);
         this.organizeTickets(this.artistArr);
     }
 
-    organizeTickets(infoArr, hash) {
+    organizeTickets(infoArr) {
         const newArtists = infoArr.reduce((accum, current) => {
             accum[current] ? accum[current]++ : accum[current] = 1;  return accum;
         }, {});
@@ -15,22 +14,21 @@ class Tickets {
             arr.push([key, newArtists[key]]);
         }
         const a = arr.sort((a, b) => b[1] - a[1]).map(value => value[0]);
-        this.callGetDataFromApi(a, hash);
+        this.callGetDataFromApi(a);
     }
 
-    // getGeoHash() {
-    //     var hash = Geohash.encode(this.location.longitude, this.location.latitude, [5]);
-    //     return hash;
-    // }
+    getGeoHash(location) {
+        var hash = Geohash.encode(this.location.longitude, this.location.latitude, [5]);
+        return hash;
+    }
 
-    callGetDataFromApi(artistArr, hash) {
+    callGetDataFromApi(artistArr, location) {
         for (var i = 0; i < artistArr.length; i++) {
             this.getDataFromApi(artistArr[i], i);
         }
     }
 
     getDataFromApi(artistName, index, callback) {
-        var hash = Geohash.encode(this.location.longitude, this.location.latitude, [5]);
         this.ajaxCallVar = {
             url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=ihQ5Lmy34lHVnLU8xKTBu75hBUHVyQAa',
             // url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=zoZn6pzPe7LewwYhAQIRpaWkJ1QMoGMz',
