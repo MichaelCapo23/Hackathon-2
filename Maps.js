@@ -1,6 +1,5 @@
 class Map {
   constructor() {
-    this.apiKey = 'AIzaSyCDnACGfvcJvr6XTbNAPz8U_iXlJ2ekgqE';
     this.mapElement = '#map';
     this.options = {
       center: { lat: 33.7222, lng: -116.3745 },
@@ -47,12 +46,31 @@ class Map {
   }
 }
 
-let display;
-
 function initMap() {
   const map = new Map();
-  display = new google.maps.Map(document.getElementById('map'), map.options);
+  const display = new google.maps.Map(document.getElementById('map'), map.options);
   const bounds = new google.maps.LatLngBounds();
+  let infoWindow = new google.maps.InfoWindow();
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude: lat, longitude: lng  } = position.coords;
+
+      marker = new google.maps.Marker({
+        position: { lat, lng },
+        map: display,
+        title: 'Your location',
+        icon: {
+          url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+          scaledSize: new google.maps.Size(40, 40),
+        }
+      });
+
+      infoWindow = new google.maps.InfoWindow({ content: 'You' });
+
+      marker.addListener('click', () => infoWindow.open(display, marker));
+    });
+  }
 
   map.locations.forEach(location => {
     let marker = new google.maps.Marker({
@@ -74,19 +92,10 @@ function initMap() {
         </div>
       </div>`;
     
-    const infoWindow = new google.maps.InfoWindow({ content: contentString });
+    infoWindow = new google.maps.InfoWindow({ content: contentString });
 
     marker.addListener('click', () => infoWindow.open(display, marker));
 
     display.fitBounds(bounds);
   });
 }
-
-// function createScript() {
-//   const script = $('<script>', {
-//     type: 'text/script',
-//     src: `https://maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=initMap`,
-//   })
-
-//   $('head').append(script);
-// }
