@@ -1,3 +1,5 @@
+// import FB from './public/FB.js';
+let FB = require('./public/FB_backend');
 let express = require("express");
 let request = require("request");
 let requestpromise = require("request-promise");
@@ -65,10 +67,16 @@ app.get("/search", function(req, res) {
     json: true
   };
 
+  // requestpromise(searchOptions).then(function(dat) {
+  //   console.log("///", dat.items);
+  // }).catch(function(err) {
+  //   console.log(err);
+  // });
+
   requestpromise(searchOptions).then(function(dat) {
     var playlists = [];
     var tracks = [];
-    for (var playlist = 0; playlist < dat.items.length - 2; playlist++) {
+    for (var playlist = 0; playlist < dat.items.length; playlist++) {
       playlists.push(dat.items[playlist].id);
     }
 
@@ -85,52 +93,33 @@ app.get("/search", function(req, res) {
     })
 
     bluebird.all(promises).spread(function () {
-      var tracks = [];
-      for (var album1 in arguments) {
-          // console.log("START: ", arguments[album1].items)
-        arguments[album1].items.forEach(function(item) {
+      for (var albumIndex in arguments) {
+        arguments[albumIndex].items.forEach(function(item) {
           tracks.push(item.track.album.artists[0].name);
         })
 
-
-        // tracks.push(arguments[album].items.track.album.artists[0].name);
-
       }
 
+      let FBclient = new FB();
+      FBclient.addSpotifyArtistsToFB(username, tracks);
+
       console.log(tracks);
+      // res.send([tracks]);
+
 
     })
-
-    // body.items.forEach(function(item) {
-    //   tracks.push(item.track.album.artists[0].name);
-  
   }).catch(function(err) {
     console.log(err);
   });
- 
 
-    // for (var playlist = 0; playlist < dat.items.length - 2; playlist++) {
-    //   var list = dat.items[playlist].id;
 
-    //   let tracksOptions = {
-    //     method: "GET",
-    //     url: `https://api.spotify.com/v1/playlists/${list}/tracks`,
-    //     headers: {
-    //       Authorization: "Bearer " + access_token
-    //     },
-    //     json: true
-    //   };
 
-    //   request.get(tracksOptions, function(error, response, body) {
-    //     body.items.forEach(function(item) {
-    //       tracks.push(item.track.album.artists[0].name);
-    //     });
-    //     // console.log(tracks);
-    //   });
-    // }
 
+
+  
   let uri = process.env.FRONTEND_URI || "index.html";
   res.redirect(uri);
+
 });
 
 let port = process.env.PORT || 8888;
