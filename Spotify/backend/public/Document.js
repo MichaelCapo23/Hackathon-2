@@ -3,9 +3,8 @@ class Document {
         this.attachClickHandlers();
         this.attachClickHandlers = this.attachClickHandlers.bind(this);
         this.grabUsername = this.grabUsername.bind(this);
-        // this.clearInputField = this.clearInputField.bind(this);
         // this.spotifyInstance = new Spotify();
-        // this.firebaseInstance = new FB();
+        this.firebaseInstance = new FB();
         this.map = new Map();
         // this.ticketsInstance = new Tickets();
     }

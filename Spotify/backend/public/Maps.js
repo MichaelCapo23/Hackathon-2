@@ -67,15 +67,15 @@ class Map {
 
         const contentString =
           `<div id="infoContent">
-          <h5 class="infoHeading">${venue}</h5>
-          <div id="infoBody">
-            <p>${artist}</p>
-            <p><a href=${website}>Ticketmaster</a></p>
-            <p>${date} ${time.slice(0, -3)}</p>
-            <p>${address}</p>
-            <p>${city}</p>
-          </div>
-        </div>`;
+            <h5 class="infoHeading">${venue}</h5>
+            <div id="infoBody">
+              <p>${artist}</p>
+              <p><a href=${website}>Ticketmaster</a></p>
+              <p>${date} ${time.slice(0, -3)}</p>
+              <p>${address}</p>
+              <p>${city}</p>
+            </div>
+          </div>`;
 
         const infoWindow = new google.maps.InfoWindow({ content: contentString });
 
@@ -84,5 +84,7 @@ class Map {
         display.fitBounds(bounds);
       });
     } 
+
+    $('infoContent').parent().addClass('card blue');
   }
 }
