@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Hackathon 2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="Maps.js"></script>
@@ -20,32 +22,103 @@
     <div class="container">
         <div class="header">
             <div class="title">
-                Spotty Concerts
+                <h1 class="center-align">Spotty Concerts</h1>
             </div>
-            <div class="instructions">
-                Welcome
-            </div>
-            <div class="usernameContainer">
-                <input type="text" class="usernameInput" placeholder="username here">
-            </div>
-            <div class="submitBtnContainer">
-                <button type="submit" class='submitBtn'>Submit</button>
-            </div>
-        </div>
-        <br>
-        <div class="concertsContainer">
-            CONCERTS LIST
-            <div class="concertsLis">
-                <div>
-                    item1
+            <h5 class="instructions center-align">
+                Type in your Spotify username below     to find relevant concerts!
+            </h5>
+            <div class="row">
+                <div class="col s4"></div>
+                <div class="col s2">
+                    <input type="text" class="usernameInput" placeholder="username here">
                 </div>
-                <div>
-                    item2
+                <div class="col s6">
+                    <button class="waves-effect waves-light btn submitBtn">Submit</button>
                 </div>
             </div>
         </div>
-        <div class="mapContainer">
-            <div id="map"></div>
+        <div class="row">
+            <div class="col s6">
+                <h4>Concerts</h4>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="https://pbs.twimg.com/profile_images/1065044434671161344/X9ez4nX__400x400.jpg">
+                                <span class="card-title">Anderson .Paak</span>
+                            </div>
+                            <div class="card-content">
+                                <p>Concerts.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Concert Link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="https://yt3.ggpht.com/a-/AN66SAzCWoA6PXQxMlimwG8yAxEi_xD0N7Zwx3Owdw=s900-mo-c-c0xffffffff-rj-k-no">
+                                <span class="card-title">Kendrick Lamar</span>
+                            </div>
+                            <div class="card-content">
+                                <p>Concerts.</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Concert Link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="https://yt3.ggpht.com/a-/AN66SAzCWoA6PXQxMlimwG8yAxEi_xD0N7Zwx3Owdw=s900-mo-c-c0xffffffff-rj-k-no">
+                                    <span class="card-title">Kendrick Lamar</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>Concerts.</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">Concert Link</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s4">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="https://yt3.ggpht.com/a-/AN66SAzCWoA6PXQxMlimwG8yAxEi_xD0N7Zwx3Owdw=s900-mo-c-c0xffffffff-rj-k-no">
+                                        <span class="card-title">Kendrick Lamar</span>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>Concerts.</p>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="#">Concert Link</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="https://yt3.ggpht.com/a-/AN66SAzCWoA6PXQxMlimwG8yAxEi_xD0N7Zwx3Owdw=s900-mo-c-c0xffffffff-rj-k-no">
+                                            <span class="card-title">Kendrick Lamar</span>
+                                        </div>
+                                        <div class="card-content">
+                                            <p>Concerts.</p>
+                                        </div>
+                                        <div class="card-action">
+                                            <a href="#">Concert Link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="mapContainer">
+                    <h4>Map</h4>
+                    <div id="map"></div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

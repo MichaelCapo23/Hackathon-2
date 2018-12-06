@@ -65,7 +65,7 @@ function initMap() {
 
     const contentString = 
       `<div id="infoContent">
-        <h1 class="infoHeading">${location.venue}</h1>
+        <h5 class="infoHeading">${location.venue}</h5>
         <div id="infoBody">
           <p>${location.website}</p>
           <p>${location.date}</p>
