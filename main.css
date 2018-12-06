@@ -15,5 +15,9 @@
 }
 
 .mapContainer {
-    background-color: blueviolet;
+    height: 70vh;
+}
+
+#map {
+  height: 100%;
 }
