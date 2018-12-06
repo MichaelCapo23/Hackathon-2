@@ -17,9 +17,6 @@ class Document {
 
     grabUsername() {
         this.username = $('.usernameInput').val();
-
-        //use username to call the proper spotify method
-        console.log(`username : ${username}`);
     }
 
     startApp() {
@@ -59,5 +56,24 @@ class Document {
         this.map.setLocations(concerts);
         this.map.initMap();
       });
+    }
+
+    renderConcertCards(artistImageLink, artistName, concertLocation, concertLink){
+        $('.concertCards').append(`
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="${artistImageLink}">
+                        <span class="card-title">${artistName}</span>
+                    </div>
+                    <div class="card-content">
+                        <p>${concertLocation}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="${concertLink}">Check out concert</a>
+                    </div>
+                </div>
+            </div>
+        `);
     }
 }
