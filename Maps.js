@@ -2,7 +2,7 @@ class Map {
   constructor() {
     this.mapElement = '#map';
     this.origin = null;
-    this.locations = [];
+    this.locations = null;
   }
 
   setLocations(locations) {
@@ -54,33 +54,35 @@ class Map {
       });
     }
 
-    this.locations.forEach(location => {
-      const marker = new google.maps.Marker({
-        position: { lat: location.lat, lng: location.lng },
-        map: display,
-        title: location.venue,
-      });
+    for (let artist in this.locations) {
+      this.locations[artist].forEach(concert => {
+        const { venue, latlog: { latitude, longitude }, address, city, country, date, time, website } = concert;        
+        const marker = new google.maps.Marker({
+          position: { lat: latitude, lng: longitude },
+          map: display,
+          title: concert.venue,
+        });
 
-      bounds.extend(new google.maps.LatLng(location.lat, location.lng));
+        bounds.extend(new google.maps.LatLng(latitude, longitude));
 
-      const price = location.price ? `<p>${location.price}</p>` : '';
-      
-      const contentString =
-        `<div id="infoContent">
-          <h1 class="infoHeading">${location.venue}</h1>
+        const contentString =
+          `<div id="infoContent">
+          <h5 class="infoHeading">${venue}</h5>
           <div id="infoBody">
-            <p>${location.website}</p>
-            <p>${location.date}</p>
-            <p>${location.address}</p>
-            ${price}
+            <p>${artist}</p>
+            <p><a href=${website}>Ticketmaster</a></p>
+            <p>${date} ${time.slice(0, -3)}</p>
+            <p>${address}</p>
+            <p>${city}</p>
           </div>
         </div>`;
 
-      const infoWindow = new google.maps.InfoWindow({ content: contentString });
+        const infoWindow = new google.maps.InfoWindow({ content: contentString });
 
-      marker.addListener('click', () => infoWindow.open(display, marker));
+        marker.addListener('click', () => infoWindow.open(display, marker));
 
-      display.fitBounds(bounds);
-    });
+        display.fitBounds(bounds);
+      });
+    } 
   }
 }

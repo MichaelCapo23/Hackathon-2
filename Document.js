@@ -20,40 +20,60 @@ class Document {
     }
 
     startApp() {
-      const concerts = [
-        {
-          venue: 'Cochella',
-          lat: 33.6803,
-          lng: -116.1739,
-          address: 'address',
-          date: '12/25/18',
-          website: 'concert.com',
-          price: '$100',
-        },
-        {
-          venue: 'Indio',
-          lat: 33.7206,
-          lng: -116.2156,
-          address: 'address',
-          date: '12/25/18',
-          website: 'concert.com',
-          price: '$100',
-        },
-        {
-          venue: 'Michael\'s house',
-          lat: 39.969938,
-          lng: -75.160278,
-          address: 'address',
-          date: '12/25/18',
-          website: 'concert.com',
-          price: '',
-        },
-      ];
+      const concertData = {
+        'ariana': [
+          {
+            venue: 'abc',
+            latlog: { latitude: 33.6803, longitude: -116.1739 },
+            city: 'los angeles',
+            country: 'United States of America',
+            address: '123 lucky street',
+            date: '12/25/18',
+            time: '19:30:00',
+            website: 'https://concert.com',
+            pricesRange: {min: 22, max: 99},
+          },
+          {
+            venue: 'Coachella',
+            latlog: { latitude: 33.7206, longitude: -116.2156 },
+            city: 'los angeles',
+            country: 'United States of America',
+            address: '123 lucky street',
+            date: '12/25/18',
+            time: '19:30:00',
+            website: 'https://concert.com',
+            pricesRange: { min: 22, max: 99 },
+          },
+        ],
+        'jid': [
+          {
+            venue: 'def',
+            latlog: { latitude: 31.6803, longitude: -126.1739 },
+            city: 'los angeles',
+            country: 'United States of America',
+            address: '123 lucky street',
+            date: '12/25/18',
+            time: '19:30:00',
+            website: 'https://concert.com',
+            pricesRange: { min: 22, max: 99 },
+          },
+          {
+            venue: 'Cochella',
+            latlog: { latitude: 35.7206, longitude: -110.2156 },
+            city: 'los angeles',
+            country: 'United States of America',
+            address: '123 lucky street',
+            date: '12/25/18',
+            time: '19:30:00',
+            website: 'https://concert.com',
+            pricesRange: { min: 22, max: 99 },
+          },
+        ]
+      }
 
       this.map.setOrigin(() => {
         const origin = this.map.getOrigin();
-        console.log(origin);
-        this.map.setLocations(concerts);
+        this.map.setLocations(concertData);
         this.map.initMap();
       });
     }
