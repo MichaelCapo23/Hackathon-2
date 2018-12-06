@@ -27,4 +27,8 @@ class FB {
             console.log(snapshot.val())
         })
     }
+
+    spotifyToFB(feed) {
+        console.log(feed);
+    }
 }
