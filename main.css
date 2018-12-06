@@ -1,23 +1,19 @@
-.header {
-    background-color: grey;
-}
-
-.title {
-    background-color: lightblue;
-}
-
-.instructions {
-    background-color: lightcoral
-}
-
-.concertsContainer {
-    background-color: aqua;
+body {
+    margin: 0;
 }
 
 .mapContainer {
-    height: 70vh;
+    height: 60vh;
 }
 
 #map {
   height: 100%;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.header {
+    background-color: lightblue;
 }
