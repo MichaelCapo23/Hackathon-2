@@ -1,6 +1,5 @@
 $(document).ready(() => {
-    let main = new Document();
+    const main = new Document();
     M.AutoInit();
-    // const map = new Map();
-    // map.display();
+    main.startApp();
 })

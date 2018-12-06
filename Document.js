@@ -7,7 +7,7 @@ class Document {
         // this.clearInputField = this.clearInputField.bind(this);
         // this.spotifyInstance = new Spotify();
         this.firebaseInstance = new FB();
-        // this.mapsInstance = new Maps();
+        this.map = new Map();
         // this.ticketsInstance = new Tickets();
     }
 
@@ -17,10 +17,44 @@ class Document {
     }
 
     grabUsername() {
-        let username = $('.usernameInput').val();
-        $('.usernameInput').val('');
+        this.username = $('.usernameInput').val();
 
         //use username to call the proper spotify method
         console.log(`username : ${username}`);
+    }
+
+    startApp() {
+      const concerts = [
+        {
+          venue: 'Cochella',
+          lat: 33.6803,
+          lng: -116.1739,
+          address: 'address',
+          date: '12/25/18',
+          website: 'concert.com',
+          price: '$100',
+        },
+        {
+          venue: 'Indio',
+          lat: 33.7206,
+          lng: -116.2156,
+          address: 'address',
+          date: '12/25/18',
+          website: 'concert.com',
+          price: '$100',
+        },
+        {
+          venue: 'Michael\'s house',
+          lat: 39.969938,
+          lng: -75.160278,
+          address: 'address',
+          date: '12/25/18',
+          website: 'concert.com',
+          price: '',
+        },
+      ];
+
+      this.map.setLocations(concerts);
+      this.map.initMap();
     }
 }
