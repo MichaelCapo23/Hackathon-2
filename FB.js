@@ -14,7 +14,7 @@ class FB {
             projectId: "hackathon2-9e91e",
             storageBucket: "hackathon2-9e91e.appspot.com",
             messagingSenderId: "951283584290"
-          };
+        };
 
         this.db = firebase.initializeApp(config).database();
     }
@@ -25,10 +25,44 @@ class FB {
 
         test.once('value', snapshot => {
             console.log(snapshot.val());
-        })
+        });
     }
 
     addSpotifyArtistsToFB(username, feed) {
-        console.log(feed);
+        this.db.ref(`/${username}/artists/`).set({feed});
+    }
+
+    getSpotifyArtistsFromFB(username) {
+        this.db.ref(`/${username}/artists/`).once('value', snapshot => {
+            if (snapshot){
+                return {
+                    success: true,
+                    feed: snapshot.val()
+                }
+            } else {
+                return {
+                    success: false
+                }
+            }
+        });
+    }
+
+    addConcertsToFB(username, feed) {
+        this.db.ref(`/${username}/concerts/`).set({feed});
+    }
+
+    getConcertsFromFB(username) {
+        this.db.ref(`/${username}/concerts/`).once('value', snapshot => {
+            if (snapshot){
+                return {
+                    success: true,
+                    feed: snapshot.val()
+                }
+            } else {
+                return {
+                    success: false
+                }
+            }
+        });
     }
 }
