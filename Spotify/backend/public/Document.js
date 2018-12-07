@@ -4,9 +4,9 @@ class Document {
         this.attachClickHandlers = this.attachClickHandlers.bind(this);
         this.grabUsername = this.grabUsername.bind(this);
         // this.spotifyInstance = new Spotify();
-        this.firebaseInstance = new FB();
+        // this.firebaseInstance = new FB();
         this.map = new Map();
-        // this.ticketsInstance = new Tickets();
+        this.ticketsInstance = new Tickets(map);
     }
 
     attachClickHandlers() {
@@ -20,64 +20,67 @@ class Document {
 
     startApp() {
       const concertData = {
-        'ariana': [
-          {
-            venue: 'abc',
-            latlog: { latitude: 33.6803, longitude: -116.1739 },
-            city: 'los angeles',
-            country: 'United States of America',
-            address: '123 lucky street',
-            date: '12/25/18',
-            time: '19:30:00',
-            website: 'https://concert.com',
-            pricesRange: {min: 22, max: 99},
-          },
-          {
-            venue: 'Coachella',
-            latlog: { latitude: 33.7206, longitude: -116.2156 },
-            city: 'los angeles',
-            country: 'United States of America',
-            address: '123 lucky street',
-            date: '12/25/18',
-            time: '19:30:00',
-            website: 'https://concert.com',
-            pricesRange: { min: 22, max: 99 },
-          },
-        ],
-        'jid': [
-          {
-            venue: 'def',
-            latlog: { latitude: 31.6803, longitude: -126.1739 },
-            city: 'los angeles',
-            country: 'United States of America',
-            address: '123 lucky street',
-            date: '12/25/18',
-            time: '19:30:00',
-            website: 'https://concert.com',
-            pricesRange: { min: 22, max: 99 },
-          },
-          {
-            venue: 'Cochella',
-            latlog: { latitude: 35.7206, longitude: -110.2156 },
-            city: 'los angeles',
-            country: 'United States of America',
-            address: '123 lucky street',
-            date: '12/25/18',
-            time: '19:30:00',
-            website: 'https://concert.com',
-            pricesRange: { min: 22, max: 99 },
-          },
-        ]
+        // 'ariana': [
+        //   {
+        //     venue: 'abc',
+        //     latlog: { latitude: 33.6803, longitude: -116.1739 },
+        //     city: 'los angeles',
+        //     country: 'United States of America',
+        //     address: '123 lucky street',
+        //     date: '12/25/18',
+        //     time: '19:30:00',
+        //     website: 'https://concert.com',
+        //     pricesRange: {min: 22, max: 99},
+        //   },
+        //   {
+        //     venue: 'Coachella',
+        //     latlog: { latitude: 33.7206, longitude: -116.2156 },
+        //     city: 'los angeles',
+        //     country: 'United States of America',
+        //     address: '123 lucky street',
+        //     date: '12/25/18',
+        //     time: '19:30:00',
+        //     website: 'https://concert.com',
+        //     pricesRange: { min: 22, max: 99 },
+        //   },
+        // ],
+        // 'jid': [
+        //   {
+        //     venue: 'def',
+        //     latlog: { latitude: 31.6803, longitude: -126.1739 },
+        //     city: 'los angeles',
+        //     country: 'United States of America',
+        //     address: '123 lucky street',
+        //     date: '12/25/18',
+        //     time: '19:30:00',
+        //     website: 'https://concert.com',
+        //     pricesRange: { min: 22, max: 99 },
+        //   },
+        //   {
+        //     venue: 'Cochella',
+        //     latlog: { latitude: 35.7206, longitude: -110.2156 },
+        //     city: 'los angeles',
+        //     country: 'United States of America',
+        //     address: '123 lucky street',
+        //     date: '12/25/18',
+        //     time: '19:30:00',
+        //     website: 'https://concert.com',
+        //     pricesRange: { min: 22, max: 99 },
+        //   },
+        // ]
       }
 
       this.map.setOrigin(() => {
         const origin = this.map.getOrigin();
-        fbClient.addOrigin('cybae0804', origin);
-        this.map.setLocations(concertData);
-        this.map.initMap();
+        fbClient.addOrigin('jpark121989', origin);
+        // this.map.setLocations(concertData);
+        // this.map.initMap();
 
-        fbClient.getSpotifyArtistsFromFB('cybae0804').then((res) => {
-            console.log('artists', res.val())
+        fbClient.getSpotifyArtistsFromFB('jpark121989').then((res) => {
+            const origin = (res.val()).origin;
+            const artists = (res.val()).artists.feed;
+            console.log(origin, artists);
+            this.ticketsInstance.organizeTickets(origin, artists);
         });
       });
     }
