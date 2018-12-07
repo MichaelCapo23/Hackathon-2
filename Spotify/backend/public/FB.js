@@ -33,36 +33,14 @@ class FB {
     }
 
     getSpotifyArtistsFromFB(username) {
-        this.db.ref(`/${username}/artists/`).once('value', snapshot => {
-            if (snapshot){
-                return {
-                    success: true,
-                    feed: snapshot.val()
-                }
-            } else {
-                return {
-                    success: false
-                }
-            }
+        return this.db.ref(`/${username}/`).once('value').then((data) => {
+            return data;
         });
     }
 
-    addConcertsToFB(username, feed) {
-        this.db.ref(`/${username}/concerts/`).set({feed});
-    }
-
-    getConcertsFromFB(username) {
-        this.db.ref(`/${username}/concerts/`).once('value', snapshot => {
-            if (snapshot){
-                return {
-                    success: true,
-                    feed: snapshot.val()
-                }
-            } else {
-                return {
-                    success: false
-                }
-            }
-        });
+    addOrigin(username, origin){
+        this.db.ref(`${username}/origin/`).set(origin);
     }
 }
+
+var fbClient = new FB();
