@@ -5,7 +5,7 @@ class Document {
         this.grabUsername = this.grabUsername.bind(this);
         // this.clearInputField = this.clearInputField.bind(this);
         // this.spotifyInstance = new Spotify();
-        this.firebaseInstance = new FB();
+        // this.firebaseInstance = new FB();
         this.map = new Map();
         // this.ticketsInstance = new Tickets();
     }
@@ -73,8 +73,13 @@ class Document {
 
       this.map.setOrigin(() => {
         const origin = this.map.getOrigin();
+        fbClient.addOrigin('cybae0804', origin);
         this.map.setLocations(concertData);
         this.map.initMap();
+
+        fbClient.getSpotifyArtistsFromFB('cybae0804').then((res) => {
+            console.log('artists', res.val())
+        });
       });
     }
 
