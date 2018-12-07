@@ -117,8 +117,8 @@ app.get("/search", function(req, res) {
 
 
   
-  let uri = process.env.FRONTEND_URI || "index.html";
-  res.redirect(uri);
+  // let uri = process.env.FRONTEND_URI || "index.html";
+  // res.redirect(uri);
 
 });
 

@@ -1,8 +1,8 @@
 class Document {
     constructor () {
-        this.attachClickHandlers();
         this.attachClickHandlers = this.attachClickHandlers.bind(this);
         this.grabUsername = this.grabUsername.bind(this);
+        this.attachClickHandlers();
         // this.clearInputField = this.clearInputField.bind(this);
         // this.spotifyInstance = new Spotify();
         // this.firebaseInstance = new FB();
@@ -17,6 +17,7 @@ class Document {
 
     grabUsername() {
         this.username = $('.usernameInput').val();
+        this.startApp();
     }
 
     startApp() {
@@ -73,12 +74,22 @@ class Document {
 
       this.map.setOrigin(() => {
         const origin = this.map.getOrigin();
-        fbClient.addOrigin('cybae0804', origin);
+        fbClient.addOrigin(this.username, origin);
         this.map.setLocations(concertData);
         this.map.initMap();
 
-        fbClient.getSpotifyArtistsFromFB('cybae0804').then((res) => {
-            console.log('artists', res.val())
+        console.log('username', this.username)
+        
+        setTimeout(10000, () => {
+            fbClient.getSpotifyArtistsFromFB(this.username).then((res) => {
+                const artists = res.val().artists;
+                const origin = res.val().origin;
+    
+                console.log('artists', artists);
+                console.log('origin', origin);
+                
+                // Tickets.method(artists, origin); // get concerts, draw
+            });
         });
       });
     }

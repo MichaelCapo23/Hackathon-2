@@ -14,11 +14,6 @@ function login() {
 function search() {
     var userName = $('.usernameInput').val();
     window.location.href = "http://localhost:8888/search?username="+userName;
-    console.log(userName);
-
-    console.log("DID THIS RUN???");
-
-    console.log(window.locationbar.href);
 }
 
 function getSpotifyPlayLists() {

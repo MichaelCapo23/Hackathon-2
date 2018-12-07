@@ -50,25 +50,6 @@ class FB {
             }
         });
     }
-
-    addConcertsToFB(username, feed) {
-        this.db.ref(`/${username}/concerts/`).set({feed});
-    }
-
-    getConcertsFromFB(username) {
-        this.db.ref(`/${username}/concerts/`).once('value', snapshot => {
-            if (snapshot){
-                return {
-                    success: true,
-                    feed: snapshot.val()
-                }
-            } else {
-                return {
-                    success: false
-                }
-            }
-        });
-    }
 }
 
 module.exports = FB;

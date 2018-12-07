@@ -2,7 +2,8 @@ class FB {
     constructor() {
         console.log('Firebase Constructor Called');
         this.init();
-        this.testConnection()
+        this.testConnection();
+        this.complete = false;
     }
 
     init() {
