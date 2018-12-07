@@ -23,7 +23,7 @@ class Tickets {
   }
 
   callGetDataFromApi(artistArr, hash) {
-    artistArr.splice(5, 100);
+    // artistArr  = ['eminem'];
     console.log("LOOOOOOK HERE", artistArr);
     for (var i = 0; i < artistArr.length; i++) {
       this.getDataFromApi(artistArr[i], i, hash);
@@ -31,7 +31,6 @@ class Tickets {
   }
 
   getDataFromApi(artistName, index, hash) {
-    console.log('#############', artistName);
     this.ajaxCallVar = {
       // url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=ihQ5Lmy34lHVnLU8xKTBu75hBUHVyQAa', // mike
       url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=tI1aYe3CCBWTWjMAkQJRhC6TAKtmanEY', // mike
@@ -52,7 +51,6 @@ class Tickets {
   ;
 
   organizeResponse(name, artistInfo, index) {
-    console.log('--------------------', artistInfo);
     for (var i = 0; i < artistInfo["_embedded"].events.length; i++) {
       var concertObj = {};
       concertObj.priceRanges = artistInfo["_embedded"].events[i].priceRanges;
@@ -74,8 +72,12 @@ class Tickets {
       this.concertInfo[name][i] = concertObj;
     }
     console.log("concertInfo", this.concertInfo);
-    this.map.setLocations(this.concertInfo);
-    initMap();
+    setTimeout(() => {
+        console.log(this);
+        this.map.setLocations(this.concertInfo);
+        this.map.initMap();
+    }, 500)
+
     
   }
 }
