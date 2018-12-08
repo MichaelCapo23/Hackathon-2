@@ -1,8 +1,6 @@
 class FB {
     constructor() {
-        console.log('Firebase Constructor Called');
         this.init();
-        this.testConnection()
     }
 
     init() {
@@ -17,19 +15,6 @@ class FB {
         };
 
         this.db = firebase.initializeApp(config).database();
-    }
-
-    testConnection() {
-        const test = this.db.ref('/test/');
-        console.log('testing connection...');
-
-        test.once('value', snapshot => {
-            console.log(snapshot.val());
-        });
-    }
-
-    addSpotifyArtistsToFB(username, feed) {
-        this.db.ref(`/${username}/artists/`).set({feed});
     }
 
     getSpotifyArtistsFromFB(username) {
