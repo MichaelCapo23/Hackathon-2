@@ -1,10 +1,7 @@
 class Document {
   constructor() {
     this.grabUsername = this.grabUsername.bind(this);
-    this.attachClickHandlers();
     this.attachClickHandlers = this.attachClickHandlers.bind(this);
-    // this.spotifyInstance = new Spotify();
-    // this.firebaseInstance = new FB();
     this.map = new Map();
     this.ticketsInstance = new Tickets(this.map);
   }
@@ -15,7 +12,7 @@ class Document {
 
   grabUsername() {
     this.username = $(".usernameInput").val();
-    this.startApp();
+    // this.startApp();
   }
 
   startApp() {
