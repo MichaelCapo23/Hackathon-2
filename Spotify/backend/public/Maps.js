@@ -1,4 +1,4 @@
-class Map {
+class Maps {
   constructor() {
     this.mapElement = "#map";
     this.origin = null;
@@ -49,13 +49,6 @@ class Map {
     return this.origin;
   }
 
-  initMap() {
-    $.getScript(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyCDnACGfvcJvr6XTbNAPz8U_iXlJ2ekgqE",
-      () => this.drawMap()
-    );
-  }
-
   drawMap() {
     const display = new google.maps.Map(document.getElementById("map"));
     const bounds = new google.maps.LatLngBounds();
@@ -85,6 +78,7 @@ class Map {
     }
 
     for (let artist in this.locations) {
+      console.log(this.locations);
       this.locations[artist].forEach(concert => {
         const {
           venue,
