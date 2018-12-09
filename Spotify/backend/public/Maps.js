@@ -9,14 +9,13 @@ class Map {
     this.locations = locations;
   }
 
-  setOrigin(callback) {
+  setOrigin() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.origin = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        callback();
       });
     }
   }
