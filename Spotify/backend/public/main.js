@@ -2,15 +2,32 @@ $(document).ready(() => {
   M.AutoInit();
 
   const spotify = new Spotify();
-  
+  const ticketMaster = new ticketMaster();
+
   spotify.attachClickHandlers();
   $(".submit").click(runSubmit);
-
 });
 
 function runSubmit() {
   var userLocation = null;
-  setOrigin(initiateSearch)
+  setOrigin(initiateSearch);
+}
+
+function initiateSearch() {
+  console.log(userLocation);
+  var userName = $(".usernameInput").val();
+
+  var spotifyOptions = {
+    url: "/search?username=" + userName
+  };
+
+  $.ajax(spotifyOptions)
+    .done(function(response) {
+      console.log("spotify success: ", response);
+    })
+    .fail(function(error) {
+      console.log("spotify error?: ", error);
+    });
 }
 
 function setOrigin(callback) {
@@ -25,21 +42,4 @@ function setOrigin(callback) {
       callback();
     });
   }
-}
-
-function initiateSearch() {
-    console.log(userLocation);
-  var userName = $(".usernameInput").val();
-
-  var spotifyOptions = {
-    url: "/search?username=" + userName
-  };
-
-  $.ajax(spotifyOptions)
-    .done(function(response) {
-      console.log("spotify success: ", response);
-    })
-    .fail(function(error) {
-      console.log("spotify error?: ", error);
-    });
 }
