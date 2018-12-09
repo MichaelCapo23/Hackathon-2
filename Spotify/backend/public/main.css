@@ -8,6 +8,7 @@ body {
 
 #map {
   height: 100%;
+  position: fixed;
 }
 
 .header {
@@ -17,6 +18,11 @@ body {
     border-radius: 15px;
 }
 
-#map {
-    position: fixed;
+.card-image > span {
+  text-align: center;
+}
+
+.usernameInput::placeholder {
+  color: white;
+  text-align: center;
 }
