@@ -2,20 +2,20 @@ class Tickets {
   constructor(map) {
     this.concertInfo = {};
     this.map = map;
-    this.artistsNumber = 5;
   }
 
   organizeTickets(location, artists) {
     const newArtists = artists.reduce((accum, current) => {
-      accum[current] ? accum[current]++ : accum[current] = 1; 
-
-      return accum;
+      accum[current] ? accum[current]++ : accum[current] = 1; return accum;
     }, {});
-    const arr = []; for (let key in newArtists) {
+    const arr = []; 
+    
+    for (let key in newArtists) {
       arr.push([key, newArtists[key]]);
     }
-    const artistsList = arr.sort((a, b) => b[1] - a[1]).map(value => value[0]);
-    this.getGeoHash(artistsList, location);
+    
+    const a = arr.sort((a, b) => b[1] - a[1]).map(value => value[0]);
+    this.getGeoHash(a, location);
   }
 
   getGeoHash(artists, location) {
@@ -24,12 +24,12 @@ class Tickets {
   }
 
   callGetDataFromApi(artistArr, hash) {
-    for (var i = 0; i < this.artistsNumber; i++) {
-      this.getDataFromApi(artistArr[i], hash);
+    for (var i = 0; i < artistArr.length; i++) {
+      this.getDataFromApi(artistArr[i], i, hash);
     }
   }
 
-  getDataFromApi(artistName, hash) {
+  getDataFromApi(artistName, index, hash) {
     this.ajaxCallVar = {
       // url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=ihQ5Lmy34lHVnLU8xKTBu75hBUHVyQAa', // mike
       url: 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=tI1aYe3CCBWTWjMAkQJRhC6TAKtmanEY', // mike
@@ -44,11 +44,12 @@ class Tickets {
       }
     };
     $.ajax(this.ajaxCallVar)
-      .then(response => this.organizeResponse(artistName, response))
-      .fail(err => console.log('Ticket.js Error', err));
+      .then(response => this.organizeResponse(artistName, response, index))
+      .fail(err => console.log('Error', err));
   }
+  ;
 
-  organizeResponse(name, artistInfo) {
+  organizeResponse(name, artistInfo, index) {
     const info = artistInfo["_embedded"].events;
     const venue = ["_embedded"]["venues"][0];
 
@@ -67,15 +68,10 @@ class Tickets {
       concertObj.website = info[i].url;
       concertObj.date = info[i].dates.start.localDate;
       concertObj.time = info[i].dates.start.localTime;
-
       if (!this.concertInfo.hasOwnProperty(name)) {
         this.concertInfo[name] = [];
       }
       this.concertInfo[name][i] = concertObj;
     }
-
-    console.log(this.concertInfo);
-    this.map.setLocations(this.concertInfo);
-    this.map.drawMap();
   }
 }

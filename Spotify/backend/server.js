@@ -48,8 +48,6 @@ app.get("/callback", function(req, res) {
   };
   request.post(authOptions, function(error, response, body) {
     access_token = body.access_token;
-    console.log(body);
-    console.log(access_token);
     let uri = process.env.FRONTEND_URI || "index.html";
     res.redirect(uri);
   });
@@ -66,12 +64,6 @@ app.get("/search", function(req, res) {
     },
     json: true
   };
-
-  // requestpromise(searchOptions).then(function(dat) {
-  //   console.log("///", dat.items);
-  // }).catch(function(err) {
-  //   console.log(err);
-  // });
 
   requestpromise(searchOptions).then(function(dat) {
     var playlists = [];
@@ -103,13 +95,13 @@ app.get("/search", function(req, res) {
       // let FBclient = new FB();
       FBclient.addSpotifyArtistsToFB(username, tracks);
 
-      console.log(tracks);
-      // res.send([tracks]);
+      res.send(tracks);
 
-
+    }).catch(function(err) {
+      console.log(err);
     })
   }).catch(function(err) {
-    console.log(err);
+    console.log('is this err: ', err);
   });
 
 
