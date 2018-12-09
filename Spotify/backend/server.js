@@ -48,8 +48,6 @@ app.get("/callback", function(req, res) {
   };
   request.post(authOptions, function(error, response, body) {
     access_token = body.access_token;
-    console.log(body);
-    console.log(access_token);
     let uri = process.env.FRONTEND_URI || "index.html";
     res.redirect(uri);
   });
@@ -57,7 +55,6 @@ app.get("/callback", function(req, res) {
 
 app.get("/search", function(req, res) {
   let username = req.query.username || null;
-  console.log(username);
 
   let searchOptions = {
     url: `https://api.spotify.com/v1/users/${username}/playlists`,
@@ -68,14 +65,7 @@ app.get("/search", function(req, res) {
     json: true
   };
 
-  // requestpromise(searchOptions).then(function(dat) {
-  //   console.log("///", dat.items);
-  // }).catch(function(err) {
-  //   console.log(err);
-  // });
-
   requestpromise(searchOptions).then(function(dat) {
-    console.log('???: ', dat);
     var playlists = [];
     var tracks = [];
     for (var playlist = 0; playlist < dat.items.length; playlist++) {
@@ -96,7 +86,6 @@ app.get("/search", function(req, res) {
 
     bluebird.all(promises).spread(function () {
       for (var albumIndex in arguments) {
-        console.log('1');
         arguments[albumIndex].items.forEach(function(item) {
           tracks.push(item.track.album.artists[0].name);
         })
@@ -106,9 +95,7 @@ app.get("/search", function(req, res) {
       // let FBclient = new FB();
       FBclient.addSpotifyArtistsToFB(username, tracks);
 
-      console.log(tracks);
       res.send(tracks);
-
 
     }).catch(function(err) {
       console.log(err);
