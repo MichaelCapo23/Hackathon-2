@@ -1,4 +1,4 @@
-class Map {
+class Maps {
   constructor() {
     this.mapElement = "#map";
     this.origin = null;
@@ -31,13 +31,13 @@ class Map {
             <div class="card">
                 <div class="card-image">
                     <img src="${artistImageLink}">
-                    <span class="card-title">${artistName}</span>
+                    <span class="card-title center-align">${artistName}</span>
                 </div>
                 <div class="card-content">
                     <p>${concertLocation}</p>
                 </div>
                 <div class="card-action">
-                    <a href="${concertLink}">Buy Tickets</a>
+                    <a href="${concertLink}" class="center-align">Buy Tickets</a>
                 </div>
             </div>
         </div>
@@ -46,13 +46,6 @@ class Map {
 
   getOrigin() {
     return this.origin;
-  }
-
-  initMap() {
-    $.getScript(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyCDnACGfvcJvr6XTbNAPz8U_iXlJ2ekgqE",
-      () => this.drawMap()
-    );
   }
 
   drawMap() {
@@ -86,6 +79,7 @@ class Map {
     for (let artist in this.locations) {
       this.locations[artist].forEach(concert => {
         const {
+          tour,
           venue,
           latlog: { latitude, longitude },
           address,
@@ -95,7 +89,7 @@ class Map {
           time,
           website
         } = concert;
-        
+
         const marker = new google.maps.Marker({
           position: { lat: +latitude[0], lng: +longitude[0] },
           map: display,
@@ -105,8 +99,9 @@ class Map {
         bounds.extend(new google.maps.LatLng(+latitude[0], +longitude[0]));
 
         const contentString = `<div id="infoContent">
-            <h5 class="infoHeading">${venue}</h5>
+            <h5 class="infoHeading">${tour}</h5>
             <div id="infoBody">
+              <p>${venue}</p>
               <p>${artist}</p>
               <p><a href=${website}>Ticketmaster</a></p>
               <p>${date} ${time.slice(0, -3)}</p>
