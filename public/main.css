@@ -12,6 +12,12 @@ body {
   position: fixed;
 }
 
+#map img {
+  float: right;
+  height: 100px;
+  width: 100px;
+}
+
 .header {
     margin-top: 15px;
     padding: 10px;
