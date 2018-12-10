@@ -4,7 +4,7 @@ const maps = new Maps();
 var userLocation = null;
 const useTicketMaster = false;
 
-const concertData = {
+const dummyConcertInfo = {
   "p!nk": [
     {
       tour: "P!nk: Beautiful Trauma World Tour",
@@ -163,7 +163,6 @@ function runSubmit() {
 }
 
 function initiateSearch() {
-  console.log(userLocation);
   var userName = $(".usernameInput").val();
 
   var spotifyOptions = {
@@ -176,10 +175,14 @@ function initiateSearch() {
 
       if (useTicketMaster) {
         ticketMaster.organizeTickets(userLocation, response);
+        const concertInfo = ticketMaster.getConcertInfo();
+        maps.setLocations(concertInfo);
       } else {
-        maps.setLocations(concertData);
-        maps.drawMap();
+        maps.setLocations(dummyConcertInfo);
       }
+      // if (Object.keys(concertInfo).length === 0) (for fallback with promises)
+  
+      maps.drawMap();
     })
     .fail(function(error) {
       console.log("spotify error?: ", error);
@@ -201,9 +204,6 @@ function setOrigin(callback) {
 }
 
 // TODOS
-// center text
-// deal with two lines in cards
-// work on overall design
 // image api for artists on cards
 // commit history - we fucked
 // change app name
