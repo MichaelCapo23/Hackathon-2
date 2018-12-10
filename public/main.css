@@ -1,9 +1,10 @@
 body {
     margin: 0;
+    background-color: #263238;
 }
 
 .mapContainer {
-    height: 80vh;
+    height: 65vh;
 }
 
 #map {
@@ -14,8 +15,9 @@ body {
 .header {
     margin-top: 15px;
     padding: 10px;
-    background-color: lightblue;
+    background-color: #ECEFF1;
     border-radius: 15px;
+    color: #37474F;
 }
 
 .card-image > span {
@@ -25,4 +27,8 @@ body {
 .usernameInput::placeholder {
   color: white;
   text-align: center;
+}
+
+button {
+  background-color: #90A4AE !important;
 }
