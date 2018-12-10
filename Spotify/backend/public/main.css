@@ -1,5 +1,15 @@
 body {
     margin: 0;
+    /* background-color: #f9f7f7; */
+    background-color: #010211;
+    color: #dbe2ef;
+}
+
+.header {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #3f72af;
+  border-radius: 15px;
 }
 
 .mapContainer {
@@ -11,13 +21,6 @@ body {
   position: fixed;
 }
 
-.header {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: lightblue;
-    border-radius: 15px;
-}
-
 .card-image > span {
   text-align: center;
 }
@@ -25,4 +28,17 @@ body {
 .usernameInput::placeholder {
   color: white;
   text-align: center;
+}
+
+h4 {
+  color: #3f72af;
+  visibility: hidden;
+}
+
+button {
+  background-color: #efa35c !important;
+}
+
+.concertCards {
+  color: #010211;
 }

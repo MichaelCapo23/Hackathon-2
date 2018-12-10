@@ -31,10 +31,10 @@ class Maps {
             <div class="card">
                 <div class="card-image">
                     <img src="${artistImageLink}">
-                    <span class="card-title center-align">${artistName}</span>
+                    <span class="card-title center-align truncate">${artistName}</span>
                 </div>
                 <div class="card-content">
-                    <p>${concertLocation}</p>
+                    <p class="truncate">${concertLocation}</p>
                 </div>
                 <div class="card-action">
                     <a href="${concertLink}" class="center-align">Buy Tickets</a>
