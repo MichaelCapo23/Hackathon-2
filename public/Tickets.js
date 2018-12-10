@@ -1,12 +1,13 @@
 class Tickets {
-  constructor(map) {
+  constructor() {
     this.concertInfo = {};
-    this.map = map;
   }
 
   organizeTickets(location, artists) {
     const newArtists = artists.reduce((accum, current) => {
-      accum[current] ? accum[current]++ : accum[current] = 1; return accum;
+      accum[current] ? accum[current]++ : accum[current] = 1; 
+      
+      return accum;
     }, {});
     const arr = []; 
     
@@ -15,7 +16,11 @@ class Tickets {
     }
     
     const a = arr.sort((a, b) => b[1] - a[1]).map(value => value[0]);
-    this.getGeoHash(a, location);
+
+    const promise = new Promise((resolve, reject) => {
+      this.getGeoHash(a, location);
+
+    })
   }
 
   getGeoHash(artists, location) {
@@ -68,10 +73,15 @@ class Tickets {
       concertObj.website = info[i].url;
       concertObj.date = info[i].dates.start.localDate;
       concertObj.time = info[i].dates.start.localTime;
+
       if (!this.concertInfo.hasOwnProperty(name)) {
         this.concertInfo[name] = [];
       }
       this.concertInfo[name][i] = concertObj;
     }
+  }
+
+  getConcertInfo() {
+    return this.concertInfo;
   }
 }

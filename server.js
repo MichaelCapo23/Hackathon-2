@@ -103,12 +103,6 @@ app.get("/search", function(req, res) {
   }).catch(function(err) {
     console.log('is this err: ', err);
   });
-
-
-
-
-
-  
   // let uri = process.env.FRONTEND_URI || "index.html";
   // res.redirect(uri);
 
