@@ -77,7 +77,9 @@ class Maps {
     }
 
     for (let artist in this.locations) {
-      this.locations[artist].forEach(concert => {
+      const image = this.locations[artist].image || 'https://picsum.photos/200/200';
+
+      this.locations[artist].concerts.forEach(concert => {
         const {
           tour,
           venue,
@@ -87,7 +89,7 @@ class Maps {
           country,
           date,
           time,
-          website
+          website,
         } = concert;
 
         const marker = new google.maps.Marker({
@@ -100,6 +102,7 @@ class Maps {
 
         const contentString = `<div id="infoContent">
             <h5 class="infoHeading">${tour}</h5>
+            <img src=${image}>
             <div id="infoBody">
               <p>${venue}</p>
               <p>${artist}</p>
@@ -112,7 +115,7 @@ class Maps {
           </div>`;
 
         this.renderConcertCards(
-          "http://picsum.photos/200/200",
+          image,
           artist,
           venue,
           website
