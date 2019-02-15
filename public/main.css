@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    background-color: #263238;
+}
+
+.mapContainer {
+    height: 65vh;
+}
+
+#map {
+  height: 100%;
+  position: fixed;
+}
+
+#map img {
+  float: right;
+  height: 100px;
+  width: 100px;
+}
+
+.header {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #ECEFF1;
+    border-radius: 15px;
+    color: #37474F;
+}
+
+.card-image > span {
+  text-align: center;
+}
+
+.usernameInput::placeholder {
+  color: white;
+  text-align: center;
+}
+
+button {
+  background-color: #90A4AE !important;
+}
