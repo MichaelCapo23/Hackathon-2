@@ -63,20 +63,22 @@ class Tickets {
         console.log("artistInfo: ", artistInfo);
         const events = artistInfo.resultsPage.results.event;
         for (let index = 0; index < 5; index++) {
-            concertObj.city = events[index]
-            concertObj.country = events[index]
-            concertObj.venue = events[index]
+            concertObj.artist = events[0].performance[0].displayName;
+            concertObj.name = events[index].displayName;
+            concertObj.city = events[index].location.city;
+            concertObj.venue = events[index].venue.displayName;
             concertObj.latlog = {
-                latitude: events[index],
-                longitude: events[index]
+                latitude: events[index].venue.lat,
+                longitude: events[index].venue.lng
             };
-            concertObj.date = events[index]
-            concertObj.url = events[index];
+            concertObj.date = events[index].start.date;
+            concertObj.url = events[index].uri;
+            if (!this.concertInfo.hasOwnProperty(name)) {
+                this.concertInfo[name] = [];
+            }
+            this.concertInfo[concertObj.artist][index] = concertObj;
         }
-        // if (!this.concertInfo.hasOwnProperty(name)) {
-        //     this.concertInfo[name] = [];
-        // }
-        this.concertInfo[index][index] = concertObj;
+
         // const info = artistInfo["_embedded"].events;
         // const venue = ["_embedded"]["venues"][0];
         //
