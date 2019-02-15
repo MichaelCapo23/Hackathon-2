@@ -40,11 +40,11 @@ class Tickets {
         };
         $.ajax(this.ajaxCallVar).then((response) => {
             debugger;
-            this.getEventInfo(response)
+            this.getEventInfo(response, index, hash)
         })
     }
 
-    getEventInfo(artistInfo) {
+    getEventInfo(artistInfo, index, hash) {
         debugger;
         let artistID = artistInfo.resultsPage.results.artist[0].id;
         this.ajaxCallVar = {
@@ -52,15 +52,31 @@ class Tickets {
             type: 'GET',
         };
         $.ajax(this.ajaxCallVar).then(response => {
-            this.organizeResponse(response)
+            this.organizeResponse(response, index, hash)
         })
     }
 
 
-    organizeResponse(artistInfo) {
+    organizeResponse(artistInfo, index, hash) {
         debugger;
+        let concertObj = {};
         console.log("artistInfo: ", artistInfo);
-        const events = artistInfo.resultsPage.results.event
+        const events = artistInfo.resultsPage.results.event;
+        for (let index = 0; index < 5; index++) {
+            concertObj.city = events[index]
+            concertObj.country = events[index]
+            concertObj.venue = events[index]
+            concertObj.latlog = {
+                latitude: events[index],
+                longitude: events[index]
+            };
+            concertObj.date = events[index]
+            concertObj.url = events[index];
+        }
+        // if (!this.concertInfo.hasOwnProperty(name)) {
+        //     this.concertInfo[name] = [];
+        // }
+        this.concertInfo[index][index] = concertObj;
         // const info = artistInfo["_embedded"].events;
         // const venue = ["_embedded"]["venues"][0];
         //
