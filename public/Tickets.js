@@ -3,7 +3,7 @@ class Tickets {
         this.concertInfo = {};
     }
 
-    organizeTickets(location, artists) {
+    organizeTickets(location, artists){
         const newArtists = artists.reduce((accum, current) => {
             accum[current] ? accum[current]++ : accum[current] = 1;
 
@@ -31,28 +31,27 @@ class Tickets {
         this.getDataFromApi(artistArr[1], 1, hash);
     }
 
-    getDataFromApi(artistName, index, hash) {
-        debugger;
+    getDataFromApi(artistName, index, hash){
         // `https://api.songkick.com/api/3.0/events.json?apikey=G8tZl3JcQGXwDFIm&artist_name=kanye+west`,
         this.ajaxCallVar = {
             type: 'GET',
             url: `https://api.songkick.com/api/3.0/search/artists.json?apikey=G8tZl3JcQGXwDFIm&query=${artistName}`,
         };
-        $.ajax(this.ajaxCallVar).then((response) => {
+        $.ajax(this.ajaxCallVar).done((response) => {
             debugger;
             this.getEventInfo(response, index, hash)
         })
     }
 
-    getEventInfo(artistInfo, index, hash) {
+    getEventInfo(artistInfo, index, hash){
         debugger;
         let artistID = artistInfo.resultsPage.results.artist[0].id;
         this.ajaxCallVar = {
             url: `https://api.songkick.com/api/3.0/artists/${artistID}/gigography.json?apikey=G8tZl3JcQGXwDFIm`,
             type: 'GET',
         };
-        $.ajax(this.ajaxCallVar).then(response => {
-            this.organizeResponse(response, index, hash)
+        $.ajax(this.ajaxCallVar).done(response => {
+            this.organizeResponse(response, index, hash);
         })
     }
 
@@ -73,8 +72,8 @@ class Tickets {
             };
             concertObj.date = events[index].start.date;
             concertObj.url = events[index].uri;
-            if (!this.concertInfo.hasOwnProperty(name)) {
-                this.concertInfo[name] = [];
+            if (!this.concertInfo.hasOwnProperty(concertObj.artist)) {
+                this.concertInfo[concertObj.artist] = [];
             }
             this.concertInfo[concertObj.artist][index] = concertObj;
         }
@@ -105,7 +104,7 @@ class Tickets {
         // }
     }
 
-    getConcertInfo() {
+    getConcertInfo(){
         return this.concertInfo;
     }
 }
